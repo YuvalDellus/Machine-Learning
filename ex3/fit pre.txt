@@ -1,0 +1,37 @@
+    def fit(self, X, y):
+
+        w = np.zeros(X.shape[0] + 1)
+
+
+
+        # print("X: ", X, X.shape, "\n")
+
+        X = self.add_ones_row(X)
+
+        Xy = X * y
+        # y = np.concatenate((y, [1]))
+
+        # print("X: ",X, X.shape, "\n")
+        # print("w: ",w, w.shape, "\n")
+
+        # wX = np.matmul(w, X.T)
+
+        while (True):
+            # print(w, "\n")
+            wX = w.dot(X)
+
+            # print("wX: ", wX, wX.shape, "\n")
+            # print("y: ",y, y.shape, "\n")
+
+            ywX = [np.array(y * wX)]
+            # print("ywX: ", ywX)
+
+            index = int(np.argmin(ywX))
+            # print("index: ", index, "\n")
+
+            if ywX[0][index] > 0:
+                self.model = w
+                break
+
+            # print("ywX[index]: ", ywX[index], "\n")
+            w += (y[index] * X.T[index])
